@@ -13,15 +13,7 @@ from typing import BinaryIO, IO, List, Optional, TextIO, Tuple
 
 from elftools.elf.elffile import ELFFile  # type: ignore
 
-
-_REPO_ROOT = os.path.join(os.path.dirname(__file__), '../../../..')
-_UTIL_DESIGN = os.path.normpath(os.path.join(_REPO_ROOT, 'util/design'))
-old_sys_path = sys.path
-try:
-    sys.path = sys.path + [_UTIL_DESIGN]
-    import secded_gen  # type: ignore
-finally:
-    sys.path = old_sys_path
+import secded_gen  # type: ignore
 
 
 def red_xor32(word: int) -> int:
@@ -269,7 +261,7 @@ class MemFile:
             else:
                 # Pad on the left if necessary to ensure that lma is 32-bit
                 # aligned.
-                if lma % 4:
+                if lma % 4 != 0:
                     merged_segments.append((lma_word, top, bytes(lma % 4) + data))
                 else:
                     merged_segments.append((lma_word, top, data))

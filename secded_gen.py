@@ -16,7 +16,7 @@ import itertools
 import logging as log
 import math
 import random
-import hjson
+#import hjson
 import subprocess
 
 COPYRIGHT = """// Copyright lowRISC contributors.
@@ -74,7 +74,7 @@ CODE_OPTIONS = {'hsiao': '', 'hamming': '_hamming'}
 PRINT_OPTIONS = {"logic": "assign ", "function": "  "}
 
 # secded configurations
-SECDED_CFG_FILE = "util/design/data/secded_cfg.hjson"
+SECDED_CFG_FILE = "config.json"
 
 # The seed we use to initialise the PRNG when running the randomised algorithm
 # to choose constants for Hsiao codes.
@@ -804,7 +804,7 @@ def main():
         log.basicConfig(format="%(levelname)s: %(message)s")
 
     with open(SECDED_CFG_FILE, 'r') as infile:
-        config = hjson.load(infile)
+        config = json.load(infile)
 
     # Error checking
     error = verify(config)
